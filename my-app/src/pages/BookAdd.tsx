@@ -57,9 +57,7 @@ const BookAdd = () => {
   const [authors, setAuthors] = useState<Author[]>([]);
   const [publishers, setPublishers] = useState<Publisher[]>([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [loadingBook, setLoadingBook] = useState(true);
   const { bookId } = useParams();
-  const isEditMode = bookId !== undefined;
 
   const navigate = useNavigate();
 
@@ -91,7 +89,6 @@ const BookAdd = () => {
   // Fetch existing book data if in edit mode
   useEffect(() => {
     const fetchBook = async () => {
-      setLoadingBook(true);
       try {
         const response = await axios.get(`${BASE_URL}/books/${bookId}`);
         const bookData = response.data;
@@ -110,7 +107,6 @@ const BookAdd = () => {
       } catch (error) {
         console.error("Error fetching book data:", error);
       } finally {
-        setLoadingBook(false);
       }
     };
 
