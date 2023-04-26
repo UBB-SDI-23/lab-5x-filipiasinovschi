@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Card,
     CardActions,
     CardContent,
@@ -13,23 +12,20 @@ import {
   } from "@mui/material";
   import { Container } from "@mui/system";
   import React ,{ useEffect, useState } from "react";
-  import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+  import { Link, useParams } from "react-router-dom";
   import { BASE_URL } from "../common/constants";
   import EditIcon from "@mui/icons-material/Edit";
   import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
   import ArrowBackIcon from "@mui/icons-material/ArrowBack";
   import { Book } from "../interfaces/Book";
-  import axios, { AxiosError } from "axios";
-  import UpgradeIcon from "@mui/icons-material/Upgrade";
+  import axios from "axios";
   
   export const BookDetails = () => {
     const { bookId } = useParams();
     const [book, setBook] = useState<Book>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const isEditMode = location.pathname.includes("edit");
+  
   
   
     useEffect(() => {
