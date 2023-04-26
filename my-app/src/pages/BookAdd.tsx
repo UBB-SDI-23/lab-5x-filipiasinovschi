@@ -39,7 +39,6 @@ const BookAdd = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
   } = useForm<BookForm>({
     defaultValues: {
       title: "",
