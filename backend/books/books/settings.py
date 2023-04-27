@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'book_api',
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
+    'rest_framework_swagger',
 
 ]
 

@@ -1,4 +1,8 @@
 from django.urls import path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view as swagger_get_schema_view
+from rest_framework import permissions
+
 from .views import (
     books_list,
     book_create,
@@ -24,6 +28,17 @@ from .views import (
     book_update_buyers, author_stats
 )
 
+schema_view = swagger_get_schema_view(
+    openapi.Info(
+        title="BOOKS API",
+        default_version="1.0.0",
+        description="API documentation"
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
+
+
 urlpatterns = [
     path('books/list/', books_list),
     path('books/', book_create),
@@ -47,5 +62,6 @@ urlpatterns = [
     path('books/<int:id>/buyers/<int:buyer_id>/', book_update_or_delete_buyer, name='book-update-or-delete-buyer'),
     path('buyers/<int:id>/books/', buyer_add_book, name='buyer-add-book'),
     path('buyers/<int:id>/books/<int:book_id>/', buyer_update_or_delete_book, name='buyer-update-or-delete-book'),
-    path('books/<int:id>/buyers/update', book_update_buyers)
+    path('books/<int:id>/buyers/update', book_update_buyers),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-schema')
 ]
