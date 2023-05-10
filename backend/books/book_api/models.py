@@ -22,7 +22,7 @@ class Publisher(models.Model):
     country = models.CharField(max_length=100)
     website = models.URLField()
     age = models.IntegerField(default=20)
-
+    text = models.CharField(max_length=100)
     def __str__(self):
         return self.name
 
