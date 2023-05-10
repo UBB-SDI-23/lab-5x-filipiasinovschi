@@ -23,9 +23,9 @@ for i in range(1000000):
     country = fake.country()
     website = fake.url()
     age = fake.random_int(min=20, max=80)
-
+    text = fake.sentence(nb_words=2)
     # SQL query to insert a Publisher record
-    query = "INSERT INTO book_api_publisher (name, address, city, country, website, age) VALUES (%s, %s, %s, %s, %s, %s)"
+    query = "INSERT INTO book_api_publisher (name, address, city, country, website, age,text) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     values = (name, address, city, country, website, age)
 
     # Execute the SQL query
