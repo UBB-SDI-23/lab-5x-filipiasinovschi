@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 conn = psycopg2.connect(
     host="localhost",
     database="mydatabase",
-    user="postgres",
+    user="mypostgres",
     password="postgres"
 )
 

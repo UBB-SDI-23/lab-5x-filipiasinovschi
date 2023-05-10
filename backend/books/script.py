@@ -6,7 +6,7 @@ import random
 conn = psycopg2.connect(
     host="localhost",
     database="mydatabase",
-    user="postgres",
+    user="mypostgres",
     password="postgres"
 )
 
