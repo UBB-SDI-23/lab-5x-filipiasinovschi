@@ -1,7 +1,7 @@
 from faker import Faker
 import psycopg2
 import random
-
+from book_api.models import BuyerSubscription
 # Connect to the PostgreSQL database
 conn = psycopg2.connect(
     host="localhost",
@@ -29,7 +29,7 @@ for i in range(1000000):
     # SQL query to insert a BuyerSubscription record
     query = "INSERT INTO book_api_buyersubscription (buyer_id, start_date, end_date) VALUES (%s, %s, %s)"
     values = (buyer_id, start_date, end_date)
-
+    print(BuyerSubscription.obejcts.count())
     # Execute the SQL query
     try:
         cur.execute(query, values)
