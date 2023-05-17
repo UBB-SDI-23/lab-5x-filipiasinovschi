@@ -6,6 +6,7 @@ import {
   Container,
   IconButton,
   InputLabel,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -20,26 +21,33 @@ import {
 import { Book } from "../interfaces/Book";
 import { BASE_URL } from "../common/constants";
 import { Link } from "react-router-dom";
-import { Add, DeleteForever, Edit, ReadMore } from "@mui/icons-material";
+import { Add, DeleteForever, Edit, NumbersRounded, ReadMore } from "@mui/icons-material";
 
 const BooksPage = () => {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState<Book[]>();
   const [minPages, setMinPages] = useState<number>();
+  const [currentPage, setCurrentPage] = useState(1); // Added state for current page
+  const [totalPages, setTotalPages] = useState(0); // Added state for total pages
 
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+  
+  // Inside the fetchBooks() function, update the URL to include the current page parameter
   const fetchBooks = () => {
     setLoading(true);
-    fetch(`${BASE_URL}/books/list/`)
+    fetch(`${BASE_URL}/books/pagination/?page=${currentPage}&per_page=10`) // Updated API endpoint with pagination parameters
       .then((response) => response.json())
       .then((data) => {
-        setBooks(data);
+        setBooks(data.books);
+        setTotalPages(Math.floor(data.total_count/10));
         setLoading(false);
       });
   };
-
   useEffect(() => {
     fetchBooks();
-  }, []);
+  }, [currentPage]);
 
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,6 +122,7 @@ const BooksPage = () => {
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Pages</TableCell>
               <TableCell align="right">Quantity</TableCell>
+              <TableCell align="right">No. Buyers</TableCell>
               <TableCell align="right">Operations</TableCell>
             </TableRow>
           </TableHead>
@@ -127,6 +136,8 @@ const BooksPage = () => {
                     <TableCell align="right">{book.price}</TableCell>
                     <TableCell align="right">{book.number_of_pages}</TableCell>
                     <TableCell align="right">{book.quantity}</TableCell>
+                    <TableCell align="right">{book.buyers.length}</TableCell>
+
                     <TableCell align="right">
                       <IconButton
                         component={Link}
@@ -159,6 +170,15 @@ const BooksPage = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box display="flex" justifyContent="center" mt={2} mb={2}>
+      <Pagination
+        count={totalPages}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="primary"
+        shape="rounded"
+      />
+    </Box>
     </Container>
   );
 };

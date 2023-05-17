@@ -13,7 +13,92 @@ from .serializer import BookSerializer, AuthorSerializer, PublisherSerializer, B
 
 # Create your views here.
 # responsible for logic to create or return data
-# books/list
+@api_view(['GET'])
+def books_pagination(request):
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
+
+    books = Book.objects.all()
+    total_count = books.count()
+
+    start_index = (page - 1) * per_page
+    end_index = start_index + per_page
+
+    books = books[start_index:end_index]
+    serializer = BookSerializer(books, many=True)
+
+    return Response({
+        'total_count': total_count,
+        'per_page': per_page,
+        'current_page': page,
+        'books': serializer.data,
+    })
+
+
+@api_view(['GET'])
+def authors_pagination(request):
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
+
+    authors = Author.objects.all()
+    total_count = authors.count()
+
+    start_index = (page - 1) * per_page
+    end_index = start_index + per_page
+
+    authors = authors[start_index:end_index]
+    serializer = AuthorSerializer(authors, many=True)
+
+    return Response({
+        'total_count': total_count,
+        'per_page': per_page,
+        'current_page': page,
+        'authors': serializer.data,
+    })
+
+
+@api_view(['GET'])
+def publishers_pagination(request):
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
+
+    publishers = Publisher.objects.all()
+    total_count = publishers.count()
+
+    start_index = (page - 1) * per_page
+    end_index = start_index + per_page
+
+    publishers = publishers[start_index:end_index]
+    serializer = PublisherSerializer(publishers, many=True)
+
+    return Response({
+        'total_count': total_count,
+        'per_page': per_page,
+        'current_page': page,
+        'publishers': serializer.data,
+    })
+
+
+@api_view(['GET'])
+def buyers_pagination(request):
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
+
+    buyers = Buyer.objects.all()
+    total_count = buyers.count()
+
+    start_index = (page - 1) * per_page
+    end_index = start_index + per_page
+
+    buyers = buyers[start_index:end_index]
+    serializer = BuyerSerializer(buyers, many=True)
+
+    return Response({
+        'total_count': total_count,
+        'per_page': per_page,
+        'current_page': page,
+        'buyers': serializer.data,
+    })
 
 
 @api_view(['GET'])
@@ -303,6 +388,7 @@ def publisher_stats(request):
     # Return the serialized data as a JSON response
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def author_stats(request):
     # Calculate the average number of pages for books written by each author
@@ -324,6 +410,7 @@ def author_stats(request):
 
     # Return the serialized data as a JSON response
     return Response(serializer.data)
+
 
 # @api_view(['POST'])
 # def add_buyer_to_book(request, id):
@@ -389,6 +476,7 @@ def book_update_buyers(request, id):
 
     return Response({'success': True, 'message': 'Buyers updated successfully for the book.'},
                     status=status.HTTP_200_OK)
+
 
 @api_view(['PUT', 'DELETE'])
 def book_update_or_delete_buyer(request, id, buyer_id):

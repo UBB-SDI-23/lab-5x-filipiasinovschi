@@ -25,7 +25,8 @@ from .views import (
     book_update_or_delete_buyer,
     buyer_add_book,
     buyer_update_or_delete_book,
-    book_update_buyers, author_stats
+    book_update_buyers, author_stats, books_pagination, authors_pagination, buyers_pagination,
+    publishers_pagination
 )
 
 schema_view = swagger_get_schema_view(
@@ -59,9 +60,16 @@ urlpatterns = [
     path('publisher_stats/', publisher_stats, name='publisher_stats'),
     path('author_stats/', author_stats, name='author_stats'),
     path('books/<int:id>/buyers/', book_add_buyer, name='book-add-buyer'),
-    path('books/<int:id>/buyers/<int:buyer_id>/', book_update_or_delete_buyer, name='book-update-or-delete-buyer'),
+    path('books/<int:id>/buyers/<int:buyer_id>/', book_update_or_delete_buyer,
+         name='book-update-or-delete-buyer'),
     path('buyers/<int:id>/books/', buyer_add_book, name='buyer-add-book'),
-    path('buyers/<int:id>/books/<int:book_id>/', buyer_update_or_delete_book, name='buyer-update-or-delete-book'),
+    path('buyers/<int:id>/books/<int:book_id>/', buyer_update_or_delete_book,
+         name='buyer-update-or-delete-book'),
     path('books/<int:id>/buyers/update', book_update_buyers),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-schema')
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-schema'),
+    path('books/pagination/', books_pagination, name='books_pagination'),
+    path('authors/pagination/', authors_pagination, name='books_pagination'),
+    path('publishers/pagination/', publishers_pagination, name='books_pagination'),
+    path('buyers/pagination/', buyers_pagination, name='books_pagination'),
+
 ]
