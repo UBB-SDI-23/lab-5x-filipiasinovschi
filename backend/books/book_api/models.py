@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, db_index=True)
     last_name = models.CharField(max_length=100)
     birth_date = models.DateField()
     email = models.EmailField()
@@ -16,7 +16,7 @@ class Author(models.Model):
 
 
 class Publisher(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
@@ -28,7 +28,7 @@ class Publisher(models.Model):
 
 
 class Buyer(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
     email = models.EmailField()
 
     def __str__(self):
