@@ -47,7 +47,7 @@ const BooksPage = () => {
   };
   useEffect(() => {
     fetchBooks();
-  }, [currentPage]);
+  }, [currentPage,fetchBooks]);
 
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
