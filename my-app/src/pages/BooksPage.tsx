@@ -21,7 +21,7 @@ import {
 import { Book } from "../interfaces/Book";
 import { BASE_URL } from "../common/constants";
 import { Link } from "react-router-dom";
-import { Add, DeleteForever, Edit, NumbersRounded, ReadMore } from "@mui/icons-material";
+import { Add, DeleteForever, Edit, ReadMore } from "@mui/icons-material";
 
 const BooksPage = () => {
   const [loading, setLoading] = useState(false);

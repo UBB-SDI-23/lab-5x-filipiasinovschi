@@ -60,39 +60,6 @@ const BookAdd = () => {
 
   const navigate = useNavigate();
 
-  const fetchAuthors = async () => {
-    try {
-      const response = await axios.get(
-        `${BASE_URL}/authors/pagination/?page=${authorPage}&per_page=30`
-      );
-      setAuthors(response.data.authors);
-    } catch (error) {
-      console.error("Error fetching authors:", error);
-    }
-  };
-
-  const fetchPublishers = async () => {
-    try {
-      const response = await axios.get(
-        `${BASE_URL}/publishers/pagination/?page=${publisherPage}&per_page=30`
-      );
-      setPublishers(response.data.publishers);
-    } catch (error) {
-      console.error("Error fetching publishers:", error);
-    }
-  };
-
-  const fetchBuyers = async () => {
-    try {
-      const response = await axios.get(
-        `${BASE_URL}/buyers/pagination/?page=${buyerPage}&per_page=30`
-      );
-      setBuyers(response.data.buyers);
-    } catch (error) {
-      console.error("Error fetching buyers:", error);
-    }
-  };
-
   // Fetch buyers, authors, and publishers data
   useEffect(() => {
     const fetchData = async () => {
