@@ -36,7 +36,7 @@ interface BookForm {
 }
 
 const BookAdd = () => {
-  const { register, handleSubmit, setValue } = useForm<BookForm>({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<BookForm>({
     defaultValues: {
       title: "",
       number_of_pages: 0,
@@ -181,8 +181,10 @@ const BookAdd = () => {
               <TextField
                 label="Title"
                 fullWidth
-                {...register("title", { required: true })}
+                {...register("title", { required: "Title is required" })}
                 sx={{ mt: 2 }}
+                error={errors.title != null}
+                helperText={errors.title?.message}
               />
               <TextField
                 label="Number of Pages"
