@@ -191,40 +191,50 @@ const BookAdd = () => {
                 fullWidth
                 type="number"
                 {...register("number_of_pages", {
-                  required: true,
+                  required: "This is required",
                   min: 1,
                   max: 1000,
                 })}
                 sx={{ mt: 2 }}
+                error={errors.number_of_pages != null}
+                helperText={errors.number_of_pages?.message}
               />
               <TextField
                 label="Publish Date"
                 fullWidth
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                {...register("publish_date", { required: true })}
+                {...register("publish_date", { required: "This is required" })}
                 sx={{ mt: 2 }}
+                error={errors.publish_date != null}
+                helperText={errors.publish_date?.message}
               />
               <TextField
                 label="IBN"
                 fullWidth
                 type="number"
-                {...register("ibn", { required: true })}
+                {...register("ibn", { required: "This is required" })}
                 sx={{ mt: 2 }}
+                error={errors.ibn != null}
+                helperText={errors.ibn?.message}
               />
               <TextField
                 label="Price"
                 fullWidth
                 type="number"
-                {...register("price", { required: true })}
+                {...register("price", { required: "This is required" })}
                 sx={{ mt: 2 }}
+                error={errors.price != null}
+                helperText={errors.price?.message}
               />
               <TextField
                 label="Quantity"
                 fullWidth
                 type="number"
-                {...register("quantity", { required: true })}
+                {...register("quantity", { required: "This is required" })}
                 sx={{ mt: 2 }}
+                error={errors.quantity != null}
+                helperText={errors.quantity?.message}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -234,8 +244,10 @@ const BookAdd = () => {
                 <InputLabel id="author-label">Author</InputLabel>
                 <Select
                   labelId="author-label"
-                  {...register("author", { required: true })}
+                  {...register("author", { required: "Author is required" })}
                   label="Author"
+                  error={errors.author != null}
+
                 >
                   {authors.map((author) => (
                     <MenuItem key={author.id} value={author.id}>
@@ -243,6 +255,11 @@ const BookAdd = () => {
                     </MenuItem>
                   ))}
                 </Select>
+                {errors.author && (
+                  <Typography variant="caption" color="error">
+                    {errors.author.message}
+                  </Typography>
+                )}
               </FormControl>
               <Button
                 variant="contained"
@@ -257,8 +274,10 @@ const BookAdd = () => {
                 <InputLabel id="publisher-label">Publisher</InputLabel>
                 <Select
                   labelId="publisher-label"
-                  {...register("publisher", { required: true })}
+                  {...register("publisher", { required: "Publisher is required!" })}
                   label="Publisher"
+                  error={errors.publisher != null}
+
                 >
                   {publishers.map((publisher) => (
                     <MenuItem key={publisher.id} value={publisher.id}>
@@ -266,6 +285,11 @@ const BookAdd = () => {
                     </MenuItem>
                   ))}
                 </Select>
+                {errors.publisher && (
+                  <Typography variant="caption" color="error">
+                    {errors.publisher.message}
+                  </Typography>
+                )}
               </FormControl>
               <Button
                 variant="contained"
@@ -277,10 +301,11 @@ const BookAdd = () => {
                 Load other Publishers
               </Button>
               <Autocomplete
-                multiple
+                multiple                
                 options={buyers}
                 getOptionLabel={(option) => `${option.name}`}
                 fullWidth
+                {...register("buyers", { required: "You must select at least a buyer!" })}
                 sx={{ mt: 2 }}
                 onChange={(_, value) =>
                   setValue(
@@ -290,6 +315,7 @@ const BookAdd = () => {
                 }
                 renderInput={(params) => (
                   <TextField
+                  
                     {...params}
                     label="Buyers"
                     placeholder="Select Buyers"
