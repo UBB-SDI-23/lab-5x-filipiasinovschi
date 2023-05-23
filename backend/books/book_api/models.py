@@ -22,7 +22,8 @@ class Publisher(models.Model):
     country = models.CharField(max_length=100)
     website = models.URLField()
     age = models.IntegerField(default=20)
-    text = models.CharField(max_length=100,default='text')
+    text = models.CharField(max_length=100, default='text')
+
     def __str__(self):
         return self.name
 
@@ -79,3 +80,17 @@ class Purchase(models.Model):
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     price = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+class User(models.Model):
+    username = models.CharField(max_length=12)
+    password = models.CharField(max_length=6)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    birthday = models.DateField()
+    gender = models.CharField(max_length=10)
+    marital_status = models.CharField(max_length=20)
